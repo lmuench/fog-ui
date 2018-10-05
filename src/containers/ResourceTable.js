@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import sematable, { Table } from 'sematable';
-// import EditableCell from './EditableCell.js';
+import EditableCell from './EditableCell.js';
 
 export const RESOURCE_TABLE = 'resourceTable';
 
 const columns = [
   { key: 'id', primaryKey: true, header: 'ID', sortable: true },
   { key: 'name', header: 'Name', searchable: true, sortable: true },
+  { key: 'path', header: 'Path', sortable: true, Component: EditableCell },
   {
     key: 'type',
     header: 'Type',
