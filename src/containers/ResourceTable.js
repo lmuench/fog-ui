@@ -24,7 +24,7 @@ const columns = [
 ];
 
 class ResourceTable extends Component {
-  render() {
+  render = () => {
     return <Table {...this.props} columns={columns} />;
   }
 }

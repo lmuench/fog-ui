@@ -36,7 +36,7 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     this.setState({
       endpoints: await builderApi.get.endpoints()
     });

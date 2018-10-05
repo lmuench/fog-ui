@@ -3,39 +3,31 @@ import { connect } from 'react-redux';
 
 require('./EditableCell.css');
 
-class EditibleCell extends Component {
+class EditableCell extends Component {
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-
     this.sematable = this.props.sematable;
     this.row = this.props.row;
-    this.state = { value: (this.row.confirmed) ? "You're on the list" : "Who are you?!" };
+    this.state = { value: '' };
   }
 
-  handleChange(event) {
+  handleChange = event => {
     event.preventDefault();
     this.setState({
       value: event.target.value
     });
-
     // TODO if necessary: dispatch cell state change
   }
 
   render = () => {
-
     const { value } = this.state;
-    const statusClass = (this.row.confirmed) ? "confirmed" : "denied";
-    const classNames = "editableCellContainer " + statusClass;
-
     return (
-      <div className={classNames}>
+      <div className="editableCellContainer">
         <input className="editableCell" type="text" value={value} onChange={this.handleChange} />
       </div>
     )
   }
-
 }
 
 const mapStateToProps = state => {
@@ -50,4 +42,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditibleCell);
+export default connect(mapStateToProps, mapDispatchToProps)(EditableCell);
