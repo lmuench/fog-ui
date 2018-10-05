@@ -1,5 +1,5 @@
 // TODO: create url dynamically from values stored in localStorage
-const base = 'http://localhost:9090/fognode/services/builder';
+const base = 'http://localhost:8080/fognode/services/builder';
 
 const builderApi = {
   get: {},

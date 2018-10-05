@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import config from '../config';
-import builderApi from '../api/builderApi';
+// import builderApi from '../api/builderApi';
+import api from '../api/api';
 import TopBar from '../components/misc/TopBar';
 import ResourceTable from './ResourceTable';
 
@@ -37,8 +38,9 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
+    const endpoints = await api.getArray('/builder/endpoints');
     this.setState({
-      endpoints: await builderApi.get.endpoints()
+      endpoints: endpoints
     });
   }
 
