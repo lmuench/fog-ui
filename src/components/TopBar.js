@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import store from '../store';
 
@@ -14,7 +14,7 @@ class TopBar extends Component {
 
   selectHandler = eventKey => {
     if (eventKey === -1) {
-      // TODO link to /connections
+      this.props.history.push('/connections');
       return;
     }
     this.setState({
@@ -65,4 +65,4 @@ class TopBar extends Component {
   );
 }
 
-export default TopBar;
+export default withRouter(TopBar);
