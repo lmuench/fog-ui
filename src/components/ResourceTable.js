@@ -35,4 +35,4 @@ class  ResourceTable extends Component {
   }
 }
 
-export default sematable(RESOURCE_TABLE, ResourceTable, columns);
+export default sematable(RESOURCE_TABLE, ResourceTable, columns, { defaultPageSize: 50 });

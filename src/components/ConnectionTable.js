@@ -39,4 +39,4 @@ class ConnectionTable extends Component {
   );
 }
 
-export default sematable(CONNECTION_TABLE, ConnectionTable, columns);
+export default sematable(CONNECTION_TABLE, ConnectionTable, columns, { defaultPageSize: 10 });
