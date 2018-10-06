@@ -1,12 +1,23 @@
-function Gateway() {
-  this.id = 0;
+function Connection() {
   this.name = '';
   this.api = '';
   this.webConsole = '';
 }
 
-const connections = (state = { connections: [new Gateway()], selected: null }, action) => {
+const getConnections = () => {
+  const connections = localStorage.getItem('connections') || [];
+  connections.push(new Connection());
+  connections.forEach((connection, i) => connection.index = i);
+  return connections;
+}
+
+const getSelected = () => (
+  localStorage.getItem('selected')
+);
+
+const connections = (state = { connections: getConnections(), selected: getSelected() }, action) => {
   switch (action.type) {
+    // case: 
     case 'SET_CONNECTION_VALUE':
       const connections = state.connections;
       connections[action.index][action.column] = action.value;

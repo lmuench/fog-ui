@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ConnectionTable from './ConnectionTable';
 // import Checkbox from './Checkbox';
+import store from '../store';
 
 function Gateway() {
   this.name = '';
@@ -16,29 +17,11 @@ class Connections extends Component {
     };
   }
 
-  componentDidMount = async () => {
-    const gateways = localStorage.getItem('gateways') || [];
-    gateways.push(new Gateway());
-    gateways.forEach((gateway, i) => gateway.index = i);
-    this.setState({
-      gateways: gateways
-    });
-  }
-
-  setName = (i, name) => {
-    const gateways = this.state.gateways;
-    gateways[i].name = name;
-    this.setState({
-      gateways: gateways
-    });
-  }
-
   render = () => (
     <div>
       <ConnectionTable
         selectable
-        data={this.state.gateways}
-        setName={(i, name) => this.setName(i, name)}
+        data={store.getState().connections.connections}
       // CheckboxComponent={Checkbox}
       />
     </div>

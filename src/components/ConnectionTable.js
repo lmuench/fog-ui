@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import sematable, { Table } from 'sematable';
-// import AppsTableActions from './AppsTableActions';
 import EditableCell from './EditableCell.js';
 import { Button } from 'react-bootstrap';
 
