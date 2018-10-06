@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 // import config from '../config';
-import TopBar from '../components/misc/TopBar';
+import TopBar from './TopBar';
 import ApiBuilder from './ApiBuilder';
 
 class App extends Component {
