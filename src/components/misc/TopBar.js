@@ -2,13 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 
-const TopBar = props => (
-  props.links.map((link, index) =>
+const gateways = localStorage.getItem('gateways') || [];
+const selectedGateway = localStorage.getItem('selectedGateway') || {};
+
+const GatewayMenuItems = () => (
+  gateways.map(gateway => (
+    <MenuItem eventKey={gateway.name}>gateway.name</MenuItem>
+  ))
+);
+
+
+const TopBar = props => {
+  return props.links.map((link, index) =>
     // <span key={index}><Link to={link}>{link}</Link></span>
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to={'/'}>Fog Node</Link>
+          <Link to={'/'}>Fog Manager</Link>
         </Navbar.Brand>
       </Navbar.Header>
       <Nav>
@@ -24,16 +34,14 @@ const TopBar = props => (
         <NavItem eventKey={2} href="http://localhost:8080/system/console/bundles">
           Felix Web Console
         </NavItem>
-        <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown">
-          <MenuItem eventKey={2.1}>Action</MenuItem>
-          <MenuItem eventKey={2.2}>Another action</MenuItem>
-          <MenuItem eventKey={2.3}>Something else here</MenuItem>
+        <NavDropdown eventKey={2} title={selectedGateway.name} id="basic-nav-dropdown">
+          <GatewayMenuItems />
           <MenuItem divider />
-          <MenuItem eventKey={2.4}>Separated link</MenuItem>
+          <MenuItem eventKey={3}>Connect to new gateway</MenuItem>
         </NavDropdown>
       </Nav>
     </Navbar>
   )
-);
+};
 
 export default TopBar;
