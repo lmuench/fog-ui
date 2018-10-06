@@ -5,7 +5,7 @@ function Connection() {
 }
 
 const getConnections = () => {
-  const connections = localStorage.getItem('connections') || [];
+  const connections = JSON.parse(localStorage.getItem('connections')) || [];
   connections.push(new Connection());
   connections.forEach((connection, i) => connection.index = i);
   return connections;
@@ -17,9 +17,8 @@ const getSelected = () => (
 
 const connections = (state = { connections: getConnections(), selected: getSelected() }, action) => {
   switch (action.type) {
-    // case: 
     case 'SET_CONNECTION_VALUE':
-      const connections = state.connections;
+      const connections = [...state.connections];
       connections[action.index][action.column] = action.value;
       return { ...state, connections };
     default:
