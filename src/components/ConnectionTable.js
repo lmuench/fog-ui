@@ -5,12 +5,6 @@ import { Button } from 'react-bootstrap';
 
 export const CONNECTION_TABLE = 'connectionTable';
 
-const SaveButton = () => (
-  <Button bsStyle="primary" onClick={save}>Save</Button>
-);
-
-const save = () => {};
-
 const NameCell = props => (
   <EditableCell {...props} column="name" />
 );

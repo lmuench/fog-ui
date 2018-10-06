@@ -28,7 +28,7 @@ class Connections extends Component {
   render = () => (
     <div>
       <ConnectionTable
-        selectable
+        // selectable
         data={store.getState().connections.connections}
         // CheckboxComponent={Checkbox}
       />

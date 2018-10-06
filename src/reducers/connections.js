@@ -12,7 +12,7 @@ const getConnections = () => {
 }
 
 const getSelected = () => (
-  localStorage.getItem('selected')
+  Number(localStorage.getItem('selectedConnection'))
 );
 
 const connections = (state = { connections: getConnections(), selected: getSelected() }, action) => {
@@ -21,6 +21,8 @@ const connections = (state = { connections: getConnections(), selected: getSelec
       const connections = [...state.connections];
       connections[action.index][action.column] = action.value;
       return { ...state, connections };
+    case 'SELECT_CONNECTION':
+      return { ...state, selected: action.index };
     default:
       return state
   }
