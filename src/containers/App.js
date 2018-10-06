@@ -33,20 +33,37 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      endpoints: []
+      resources: []
     };
   }
 
   componentDidMount = async () => {
     const endpoints = await api.getArray('/builder/endpoints');
+    const resources = this.extractResources(endpoints);
     this.setState({
-      endpoints: endpoints
+      resources: resources
     });
+  }
+
+  extractResources = endpoints => {
+    const resources = [];
+    endpoints.forEach(endpoint => {
+      endpoint.resources.forEach(resource => {
+        const extendedResource = {
+          ...endpoint,
+          ...resource
+        };
+        delete extendedResource.resources;
+        extendedResource.customPath = extendedResource.path;
+        resources.push(extendedResource);
+      })
+    })
+    return resources;
   }
 
   render = () => (
     <div className="App">
-      <ResourceTable data={resources} />
+      <ResourceTable data={this.state.resources} />
     </div>
   );
 }
