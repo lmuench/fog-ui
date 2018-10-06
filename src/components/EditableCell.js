@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { makeSelectors } from 'sematable';
+import store from '../store';
 
 require('./EditableCell.css');
 
@@ -7,17 +9,22 @@ class EditableCell extends Component {
 
   constructor(props) {
     super(props);
-    this.sematable = this.props.sematable;
-    this.row = this.props.row;
-    this.state = { value: '' };
+    this.state = {
+      value: ''
+    };
   }
 
   handleChange = event => {
     event.preventDefault();
     this.setState({
+      value: event.target.value,
+    });
+    store.dispatch({
+      type: 'SET',
+      index: this.props.row.index,
+      column: this.props.column,
       value: event.target.value
     });
-    // TODO if necessary: dispatch cell state change
   }
 
   render = () => {
@@ -32,14 +39,8 @@ class EditableCell extends Component {
 
 const mapStateToProps = state => {
   return {
-    sematable: state.sematable
+    connections: state.connections
   };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    dispatch: dispatch
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditableCell);
+export default connect(mapStateToProps, null)(EditableCell);
