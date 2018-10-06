@@ -32,7 +32,7 @@ const TopBar = props => {
           API Builder
         </NavItem>
         <NavItem eventKey={2} href="http://localhost:8080/system/console/bundles">
-          Felix Web Console
+          Web Console
         </NavItem>
         <NavDropdown eventKey={2} title={selectedGateway.name} id="basic-nav-dropdown">
           <GatewayMenuItems />
