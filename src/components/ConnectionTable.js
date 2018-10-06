@@ -16,19 +16,19 @@ const NameCell = props => (
   <EditableCell {...props} column="name" />
 );
 
-const apiCell = props => (
+const ApiCell = props => (
   <EditableCell {...props} column="api" />
 );
 
-const webConsoleCell = props => (
+const WebConsoleCell = props => (
   <EditableCell {...props} column="webConsole" />
 );
 
 const columns = [
   { key: 'index', primaryKey: true, header: 'Index', sortable: true },
   { key: 'name', primaryKey: true, header: 'Name', searchable: true, sortable: true, Component: NameCell },
-  { key: 'api', header: 'API URL', searchable: true, sortable: true, Component: apiCell },
-  { key: 'webConsole', header: 'Web Console URL', searchable: true, sortable: true, Component: webConsoleCell }
+  { key: 'api', header: 'API URL', searchable: true, sortable: true, Component: ApiCell },
+  { key: 'webConsole', header: 'Web Console URL', searchable: true, sortable: true, Component: WebConsoleCell }
 ];
 
 class ConnectionTable extends Component {

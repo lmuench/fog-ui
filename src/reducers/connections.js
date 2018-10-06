@@ -7,7 +7,7 @@ function Gateway() {
 
 const connections = (state = { connections: [new Gateway()], selected: null }, action) => {
   switch (action.type) {
-    case 'SET':
+    case 'SET_CONNECTION_VALUE':
       const connections = state.connections;
       connections[action.index][action.column] = action.value;
       return { ...state, connections };

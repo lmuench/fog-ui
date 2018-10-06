@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { makeSelectors } from 'sematable';
 import store from '../store';
 
 require('./EditableCell.css');
@@ -20,7 +18,7 @@ class EditableCell extends Component {
       value: event.target.value,
     });
     store.dispatch({
-      type: 'SET',
+      type: 'SET_CONNECTION_VALUE',
       index: this.props.row.index,
       column: this.props.column,
       value: event.target.value
@@ -37,10 +35,4 @@ class EditableCell extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    connections: state.connections
-  };
-}
-
-export default connect(mapStateToProps, null)(EditableCell);
+export default EditableCell;
