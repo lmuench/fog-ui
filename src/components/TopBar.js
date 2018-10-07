@@ -44,7 +44,7 @@ class TopBar extends Component {
             <MenuItem eventKey={connection.index}>{connection.name}</MenuItem>
           ))}
           <MenuItem divider />
-          <MenuItem eventKey={-1}>Add connection...</MenuItem>
+          <MenuItem eventKey={-1}>Edit connections...</MenuItem>
         </NavDropdown>
       </Nav>
     </Navbar>
