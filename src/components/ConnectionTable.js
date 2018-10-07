@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import sematable, { Table } from 'sematable';
 import EditableCell from './EditableCell.js';
-import { Button } from 'react-bootstrap';
-
-export const CONNECTION_TABLE = 'connectionTable';
 
 const NameCell = props => (
   <EditableCell {...props} column="name" />
@@ -33,4 +30,4 @@ class ConnectionTable extends Component {
   );
 }
 
-export default sematable(CONNECTION_TABLE, ConnectionTable, columns, { defaultPageSize: 10 });
+export default sematable('connectionTable', ConnectionTable, columns, { defaultPageSize: 10 });

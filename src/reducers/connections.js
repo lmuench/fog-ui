@@ -1,4 +1,5 @@
-function Connection() {
+function Connection(index) {
+  this.index = index;
   this.name = '';
   this.api = '';
   this.webConsole = '';
@@ -6,7 +7,6 @@ function Connection() {
 
 const getConnections = () => {
   const connections = JSON.parse(localStorage.getItem('connections')) || [];
-  connections.push(new Connection());
   connections.forEach((connection, i) => connection.index = i);
   return connections;
 }
@@ -16,13 +16,26 @@ const getSelected = () => (
 );
 
 const connections = (state = { connections: getConnections(), selected: getSelected() }, action) => {
+  const connections = [...state.connections];
   switch (action.type) {
+    case 'NEW_CONNECTION':
+      connections.push(new Connection(connections.length));
+      return { ...state, connections };
     case 'SET_CONNECTION_VALUE':
-      const connections = [...state.connections];
       connections[action.index][action.column] = action.value;
       return { ...state, connections };
     case 'SELECT_CONNECTION':
       return { ...state, selected: action.index };
+    case 'DELETE_CONNECTION':
+      connections.splice(action.index, 1);
+      connections.forEach((connection, i) => connection.index = i);
+      console.log('after delete:', connections);
+      return { ...state, connections };
+    case 'SAVE_CONNECTIONS':
+      localStorage.setItem(
+        'connections',
+        JSON.stringify(connections)
+      );
     default:
       return state
   }

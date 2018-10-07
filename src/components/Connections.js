@@ -1,40 +1,50 @@
 import React, { Component } from 'react';
 import ConnectionTable from './ConnectionTable';
-// import Checkbox from './Checkbox';
+import { makeSelectors } from 'sematable';
 import store from '../store';
 import { Button } from 'react-bootstrap';
-
-function Gateway() {
-  this.name = '';
-  this.api = '';
-  this.webConsole = '';
-}
+import { connect } from 'react-redux';
 
 class Connections extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      gateways: []
-    };
+
+  delete = () => {
+    this.props.selectedRows.forEach(row => store.dispatch({
+      type: 'DELETE_CONNECTION',
+      index: row.index
+    }));
+    this.save();
+  }
+
+  new = () => {
+    store.dispatch({
+      type: 'NEW_CONNECTION'
+    });
   }
 
   save = () => {
-    localStorage.setItem(
-      'connections',
-      JSON.stringify(store.getState().connections.connections)
-    );
+    store.dispatch({
+      type: 'SAVE_CONNECTIONS'
+    });
   }
 
   render = () => (
     <div>
       <ConnectionTable
-        // selectable
-        data={store.getState().connections.connections}
-        // CheckboxComponent={Checkbox}
+        selectable
+        data={this.props.connections}
       />
+      <Button bsStyle="danger" onClick={this.delete}>Delete selection</Button>
+      <Button bsStyle="success" onClick={this.new}>New</Button>
       <Button bsStyle="primary" onClick={this.save}>Save</Button>
     </div>
   );
 }
 
-export default Connections;
+const selectors = makeSelectors('connectionTable');
+
+const mapStateToProps = state => ({
+  connections: state.connections.connections,
+  selectedRows: selectors.getSelectedRows(state)
+});
+
+export default connect(mapStateToProps)(Connections);

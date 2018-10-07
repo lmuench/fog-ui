@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import sematable, { Table } from 'sematable';
 import EditableCell from './EditableCell.js';
 
-export const RESOURCE_TABLE = 'resourceTable';
-
 const columns = [
   { key: 'add', header: 'Add', sortable: true },
   {
@@ -35,4 +33,4 @@ class  ResourceTable extends Component {
   }
 }
 
-export default sematable(RESOURCE_TABLE, ResourceTable, columns, { defaultPageSize: 50 });
+export default sematable('resourceTable', ResourceTable, columns, { defaultPageSize: 50 });
