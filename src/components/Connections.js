@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import ConnectionTable from './ConnectionTable';
 import { makeSelectors } from 'sematable';
-import store from '../store';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class Connections extends Component {
 
   delete = () => {
-    this.props.selectedRows.forEach(row => store.dispatch({
+    this.props.selectedRows.forEach(row => this.props.dispatch({
       type: 'DELETE_CONNECTION',
       index: row.index
     }));
@@ -16,13 +15,13 @@ class Connections extends Component {
   }
 
   new = () => {
-    store.dispatch({
+    this.props.dispatch({
       type: 'NEW_CONNECTION'
     });
   }
 
   save = () => {
-    store.dispatch({
+    this.props.dispatch({
       type: 'SAVE_CONNECTIONS'
     });
   }
@@ -33,9 +32,9 @@ class Connections extends Component {
         selectable
         data={this.props.connections}
       />
-      <Button bsStyle="danger" onClick={this.delete}>Delete selection</Button>
-      <Button bsStyle="success" onClick={this.new}>New</Button>
-      <Button bsStyle="primary" onClick={this.save}>Save</Button>
+      <Button onClick={this.delete} style={{ marginRight: '30px' }} bsStyle="danger">Delete selection</Button>
+      <Button onClick={this.new} style={{ marginRight: '5px' }}>New</Button>
+      <Button onClick={this.save}>Save</Button>
     </div>
   );
 }

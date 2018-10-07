@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import store from '../store';
+import { connect } from 'react-redux';
 
 require('./EditableCell.css');
 
@@ -7,7 +7,7 @@ class EditableCell extends Component {
 
   handleChange = event => {
     event.preventDefault();
-    store.dispatch({
+    this.props.dispatch({
       type: 'SET_CONNECTION_VALUE',
       index: this.props.row.index,
       column: this.props.column,
@@ -24,4 +24,4 @@ class EditableCell extends Component {
   }
 }
 
-export default EditableCell;
+export default connect()(EditableCell);
