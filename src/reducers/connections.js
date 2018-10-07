@@ -24,8 +24,6 @@ const connections = (state = { connections: getConnections(), selected: getSelec
     case 'SET_CONNECTION_VALUE':
       connections[action.index][action.column] = action.value;
       return { ...state, connections };
-    case 'SELECT_CONNECTION':
-      return { ...state, selected: action.index };
     case 'DELETE_CONNECTION':
       connections.splice(action.index, 1);
       connections.forEach((connection, i) => connection.index = i);
@@ -36,6 +34,12 @@ const connections = (state = { connections: getConnections(), selected: getSelec
         'connections',
         JSON.stringify(connections)
       );
+    case 'SELECT_CONNECTION':
+      localStorage.setItem(
+        'selectedConnection',
+        action.index
+      );
+      return { ...state, selected: action.index };
     default:
       return state
   }

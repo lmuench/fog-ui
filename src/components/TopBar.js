@@ -1,33 +1,19 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
-import store from '../store';
+import { connect } from 'react-redux';
 
 class TopBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      connections: store.getState().connections.connections,
-      selectedConnection: store.getState().connections.selected || 0
-    };
-  }
 
   selectHandler = eventKey => {
     if (eventKey === -1) {
       this.props.history.push('/connections');
       return;
     }
-    this.setState({
-      selectedConnection: eventKey
-    })
-    store.dispatch({
+    this.props.dispatch({
       type: 'SELECT_CONNECTION',
       index: eventKey
     });
-    localStorage.setItem(
-      'selectedConnection',
-      eventKey
-    );
   }
 
   render = () => (
@@ -50,11 +36,11 @@ class TopBar extends Component {
           Web Console
         </NavItem>
         <NavDropdown
-          title={this.state.connections[this.state.selectedConnection].name}
+          title={this.props.connections[this.props.selected] && this.props.connections[this.props.selected].name}
           id="basic-nav-dropdown"
           onSelect={this.selectHandler}
         >
-          {this.state.connections.map(connection => (
+          {this.props.connections.map(connection => (
             <MenuItem eventKey={connection.index}>{connection.name}</MenuItem>
           ))}
           <MenuItem divider />
@@ -65,4 +51,9 @@ class TopBar extends Component {
   );
 }
 
-export default withRouter(TopBar);
+const mapStateToProps = state => ({
+  connections: state.connections.connections,
+  selected: state.connections.selected  
+});
+
+export default withRouter(connect(mapStateToProps)(TopBar));
