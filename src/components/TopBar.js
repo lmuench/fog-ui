@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import store from '../store';
 
 class TopBar extends Component {
 
@@ -14,6 +15,16 @@ class TopBar extends Component {
       type: 'SELECT_CONNECTION',
       index: eventKey
     });
+  }
+
+  createWebConsoleUrl = () => {
+    const connections = store.getState().connections.connections;
+    const selected = store.getState().connections.selected;
+    const connection = connections[selected]
+    if (!connection) return '#';
+    const host = connection.host;
+    if (!host) return '#';
+    return host + '/system/console';
   }
 
   render = () => (
@@ -32,7 +43,7 @@ class TopBar extends Component {
         >
           API Builder
         </NavItem>
-        <NavItem href="http://localhost:8080/system/console/bundles">
+        <NavItem href={this.createWebConsoleUrl()}>
           Web Console
         </NavItem>
         <NavDropdown
