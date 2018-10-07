@@ -1,8 +1,8 @@
 function Connection(index) {
   this.index = index;
   this.name = '';
-  this.api = '';
-  this.webConsole = '';
+  this.host = '';
+  this.description = '';
 }
 
 const getConnections = () => {
@@ -27,13 +27,13 @@ const connections = (state = { connections: getConnections(), selected: getSelec
     case 'DELETE_CONNECTION':
       connections.splice(action.index, 1);
       connections.forEach((connection, i) => connection.index = i);
-      console.log('after delete:', connections);
       return { ...state, connections };
     case 'SAVE_CONNECTIONS':
       localStorage.setItem(
         'connections',
         JSON.stringify(connections)
       );
+      return state;
     case 'SELECT_CONNECTION':
       localStorage.setItem(
         'selectedConnection',
@@ -41,7 +41,7 @@ const connections = (state = { connections: getConnections(), selected: getSelec
       );
       return { ...state, selected: action.index };
     default:
-      return state
+      return state;
   }
 };
 

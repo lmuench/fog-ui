@@ -16,7 +16,6 @@ const api = {};
 
 api.getArray = async path => {
   const url = createUrl(path);
-  console.log(url);
   if (!url) return [];
   const res = await fetch(url);
   if (res.status !== 200) return [];
@@ -26,7 +25,7 @@ api.getArray = async path => {
 api.put = (path, data) => {
   const url = createUrl(path);
   if (!url) return;
-  const res = fetch(url, {
+  fetch(url, {
     method: 'PUT',
     body: JSON.stringify(data)
   });
@@ -35,9 +34,7 @@ api.put = (path, data) => {
 api.delete = path => {
   const url = createUrl(path);
   if (!url) return;
-  const res = fetch(url, {
-    method: 'DELETE'
-  });
+  fetch(url, { method: 'DELETE' });
 }
 
 export default api;

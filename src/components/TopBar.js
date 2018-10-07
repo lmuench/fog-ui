@@ -15,6 +15,9 @@ class TopBar extends Component {
       type: 'SELECT_CONNECTION',
       index: eventKey
     });
+    if (window.location.hash === '#/apibuilder') {
+      window.location.reload();
+    }
   }
 
   createWebConsoleUrl = () => {
@@ -51,8 +54,8 @@ class TopBar extends Component {
           id="basic-nav-dropdown"
           onSelect={this.selectHandler}
         >
-          {this.props.connections.map(connection => (
-            <MenuItem eventKey={connection.index}>{connection.name}</MenuItem>
+          {this.props.connections.map((connection, i) => (
+            <MenuItem eventKey={connection.index} key={i}>{connection.name}</MenuItem>
           ))}
           <MenuItem divider />
           <MenuItem eventKey={-1}>Edit connections...</MenuItem>
