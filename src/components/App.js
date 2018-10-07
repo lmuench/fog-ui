@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-// import config from '../config';
 import TopBar from './TopBar';
 import ApiBuilder from './ApiBuilder';
 import Connections from './Connections';

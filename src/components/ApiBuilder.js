@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import config from '../config';
-import api from '../api/api';
+import api from '../api';
 import ResourceTable from './ResourceTable';
 
 class ApiBuilder extends Component {
