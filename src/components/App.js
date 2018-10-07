@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import TopBar from './TopBar';
 import ApiBuilder from './ApiBuilder';
 import Connections from './Connections';
+import WebConsole from './WebConsole';
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
       <TopBar links={['/apibuilder']} />
       <Route path="/apibuilder" component={ApiBuilder} />
       <Route path="/connections" component={Connections} />
+      <Route path="/webconsole" component={WebConsole} />
     </div>
   );
 }
