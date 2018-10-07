@@ -32,7 +32,7 @@ class Connections extends Component {
         selectable
         data={this.props.connections}
       />
-      <Button onClick={this.delete} style={{ marginRight: '30px' }} bsStyle="danger">Delete selection</Button>
+      <Button onClick={this.delete} style={{ marginRight: '30px' }} bsStyle="danger">Delete selected</Button>
       <Button onClick={this.new} style={{ marginRight: '5px' }}>New</Button>
       <Button onClick={this.save}>Save</Button>
     </div>
