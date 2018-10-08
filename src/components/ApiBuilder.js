@@ -53,7 +53,7 @@ class ApiBuilder extends Component {
 
   save = () => {
     const map = {};
-    this.props.mappings.forEach(m => {
+    this.props.selectedRows.forEach(m => {
       map[m.customPath] = m.base + m.path;
     });
     api.put('/builder/mapping', map);
@@ -61,14 +61,14 @@ class ApiBuilder extends Component {
 
   render = () => (
     <div className="ApiBuilder">
-      <ResourceTable data={this.props.mappings} />
+      <ResourceTable selectable data={this.props.mappings} />
       <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button>
-      <Button onClick={this.save}>Save mapping</Button>
+      <Button onClick={this.save}>Save selected</Button>
     </div>
   );
 }
 
-const selectors = makeSelectors('connectionTable');
+const selectors = makeSelectors('resourceTable');
 
 const mapStateToProps = state => ({
   mappings: state.mappings.mappings,
