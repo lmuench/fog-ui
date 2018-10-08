@@ -62,8 +62,8 @@ class ApiBuilder extends Component {
   render = () => (
     <div className="ApiBuilder">
       <ResourceTable data={this.props.mappings} />
-      <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload</Button>
-      <Button onClick={this.save}>Save</Button>
+      <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button>
+      <Button onClick={this.save}>Save mapping</Button>
     </div>
   );
 }
