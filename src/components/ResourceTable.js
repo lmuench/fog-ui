@@ -6,6 +6,8 @@ const CustomPathCell = props => (
   <EditableCell {...props} actionType="SET_MAPPING_VALUE" column="customPath" />
 );
 
+const getFilterClassName = value => `col-${value.toLowerCase()}`;
+
 const columns = [
   // TODO: status
   // {
@@ -23,11 +25,11 @@ const columns = [
   { key: 'base', header: 'Base URI', searchable: true, sortable: true },
   { key: 'path', primaryKey: true, header: 'Original Path', searchable: true, sortable: true },
   { key: 'customPath', header: 'Custom Path', searchable: true, sortable: true, Component: CustomPathCell },
-  { key: 'rt', header: 'Resource Type', searchable: true, sortable: true },
-  { key: 'if', header: 'Interface Description', searchable: true, sortable: true },
+  { key: 'rt', header: 'Resource Type', searchable: true, sortable: true},
+  { key: 'if', header: 'Interface Description', searchable: true, sortable: true, filterable: true, filterValues: ['actuator', 'sensor'], getFilterClassName },
   { key: 'ep', header: 'Endpoint', searchable: true, sortable: true },
   { key: 'd', header: 'Sector', searchable: true, sortable: true },
-  { key: 'protocol', header: 'Protocol', sortable: true },
+  { key: 'protocol', header: 'Protocol', sortable: true, filterable: true, filterValues: ['CoAP', 'HTTP', 'MQTT'], getFilterClassName }
   // { key: 'gp', header: 'Group', searchable: true, sortable: true }
 ];
 
