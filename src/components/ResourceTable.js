@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import sematable, { Table } from 'sematable';
 import EditableCell from './EditableCell.js';
 
+const CustomPathCell = props => (
+  <EditableCell {...props} actionType="SET_MAPPING_VALUE" column="customPath" />
+);
+
 const columns = [
   { key: 'add', header: 'Add', sortable: true },
   {
@@ -16,7 +20,7 @@ const columns = [
     getFilterClassName: value => `col-${value.toLowerCase()}`,
     sortable: true
   },
-  { key: 'customPath', header: 'Custom Path', searchable: true, sortable: true, Component: EditableCell },
+  { key: 'customPath', header: 'Custom Path', searchable: true, sortable: true, Component: CustomPathCell },
   { key: 'path', primaryKey: true, header: 'Original Path', searchable: true, sortable: true },
   { key: 'rt', header: 'Resource Type', searchable: true, sortable: true },
   { key: 'if', header: 'Interface Description', searchable: true, sortable: true },

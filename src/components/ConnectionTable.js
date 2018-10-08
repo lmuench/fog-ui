@@ -3,15 +3,15 @@ import sematable, { Table } from 'sematable';
 import EditableCell from './EditableCell.js';
 
 const NameCell = props => (
-  <EditableCell {...props} column="name" />
+  <EditableCell {...props} actionType="SET_CONNECTION_VALUE" column="name" />
 );
 
 const HostCell = props => (
-  <EditableCell {...props} column="host" />
+  <EditableCell {...props} actionType="SET_CONNECTION_VALUE" column="host" />
 );
 
 const DescriptionCell = props => (
-  <EditableCell {...props} column="description" />
+  <EditableCell {...props} actionType="SET_CONNECTION_VALUE" column="description" />
 );
 
 const columns = [
@@ -23,10 +23,7 @@ const columns = [
 
 class ConnectionTable extends Component {
   render = () => (
-    <Table
-      {...this.props}
-      columns={columns}
-    />
+    <Table {...this.props} columns={columns} />
   );
 }
 

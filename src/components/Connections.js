@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class Connections extends Component {
-
   delete = () => {
     this.props.selectedRows.forEach(row => this.props.dispatch({
       type: 'DELETE_CONNECTION',

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Iframe from 'react-iframe';
 
 class WebConsole extends Component {
-
   createWebConsoleUrl = () => {
     const connection = this.props.connections[this.props.selected]
     if (!connection) return null;

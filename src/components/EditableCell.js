@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 require('./EditableCell.css');
 
 class EditableCell extends Component {
-
   handleChange = event => {
     event.preventDefault();
     this.props.dispatch({
-      type: 'SET_CONNECTION_VALUE',
+      type: this.props.actionType,
       index: this.props.row.index,
       column: this.props.column,
       value: event.target.value
