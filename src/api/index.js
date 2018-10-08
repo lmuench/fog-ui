@@ -27,6 +27,9 @@ api.put = (path, data) => {
   if (!url) return;
   fetch(url, {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
     body: JSON.stringify(data)
   });
 }

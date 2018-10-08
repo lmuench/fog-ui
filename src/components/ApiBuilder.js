@@ -52,9 +52,11 @@ class ApiBuilder extends Component {
   }
 
   save = () => {
-    this.props.dispatch({
-      type: 'SAVE_MAPPINGS'
+    const map = {};
+    this.props.mappings.forEach(m => {
+      map[m.customPath] = m.base + m.path;
     });
+    api.put('/builder/mapping', map);
   }
 
   render = () => (
