@@ -13,7 +13,7 @@ class WebConsole extends Component {
 
   render = () => {
     const url = this.createWebConsoleUrl();
-    return url ? <Iframe url={url} height="1500px" /> : <div>No host defined</div>;
+    return url ? <Iframe url={url} height="1800px" /> : <div>No host defined</div>;
   }
 }
 
