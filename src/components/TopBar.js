@@ -4,6 +4,17 @@ import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class TopBar extends Component {
+  resourceSelectHandler = eventKey => {
+    if (eventKey === -1) {
+      this.props.history.push('/resources');
+      return;
+    }
+    this.props.dispatch({
+      type: 'SHOW_RESOURCE',
+      index: eventKey
+    });
+  }
+
   connectionSelectHandler = eventKey => {
     if (eventKey === -1) {
       this.props.history.push('/connections');
@@ -30,10 +41,16 @@ class TopBar extends Component {
           title="Resources"
           id="basic-nav-dropdown"
           onSelect={this.resourceSelectHandler}
+          active={window.location.hash === '#/resources'}
         >
-          {this.props.resources.map((resource, i) => (
-            <MenuItem eventKey={resource.index} key={i}>{resource.name}</MenuItem>
-          ))}
+          {this.props.endpoints.map(endpoint => ([
+            <MenuItem header>{endpoint.ep}</MenuItem>,
+            endpoint.resources.map((resource, i) => (
+              <MenuItem eventKey={resource.index} key={i}>{resource.path}</MenuItem>
+            ))
+          ]))}
+          <MenuItem divider />
+          <MenuItem eventKey={-1}>View all</MenuItem>
         </NavDropdown>
         <NavItem
           componentClass={Link}
@@ -55,6 +72,7 @@ class TopBar extends Component {
           title={this.props.connections[this.props.selected] && this.props.connections[this.props.selected].name}
           id="basic-nav-dropdown"
           onSelect={this.connectionSelectHandler}
+          active={window.location.hash === '#/connections'}
         >
           {this.props.connections.map((connection, i) => (
             <MenuItem eventKey={connection.index} key={i}>{connection.name}</MenuItem>
@@ -68,6 +86,7 @@ class TopBar extends Component {
 }
 
 const mapStateToProps = state => ({
+  endpoints: state.resources.endpoints,
   resources: state.resources.resources,
   connections: state.connections.connections,
   selected: state.connections.selected  

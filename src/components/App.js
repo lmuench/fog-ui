@@ -4,6 +4,7 @@ import TopBar from './TopBar';
 import ApiBuilder from './ApiBuilder';
 import Connections from './Connections';
 import WebConsole from './WebConsole';
+import ResourceAccess from './ResourceAccess';
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends Component {
   render = () => (
     <div className="App">
       <TopBar links={['/apibuilder']} />
+      <Route path="/resources" component={ResourceAccess} />
       <Route path="/apibuilder" component={ApiBuilder} />
       <Route path="/connections" component={Connections} />
       <Route path="/webconsole" component={WebConsole} />

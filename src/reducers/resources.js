@@ -1,8 +1,10 @@
-const resources = (state = { resources: [] }, action) => {
+const resources = (state = { resources: [], endpoints: [] }, action) => {
   const resources = [...state.resources];
   switch (action.type) {
-    // case 'SET_INITIAL_RESOURCES':
-    //   return { ...state, resources: action.value };
+    case 'SET_INITIAL_ENDPOINTS':
+      return { ...state, endpoints: action.value };
+    case 'SET_INITIAL_RESOURCES':
+      return { ...state, resources: action.value };
     // case 'NEW_RESOURCE':
     //   resources.push(new Connection(resources.length));
     //   return { ...state, resources };
