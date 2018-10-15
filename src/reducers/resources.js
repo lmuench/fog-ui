@@ -1,6 +1,8 @@
-const resources = (state = { resources: [], endpoints: [] }, action) => {
+const resources = (state = { mappings: [], resources: [], endpoints: [] }, action) => {
   const resources = [...state.resources];
   switch (action.type) {
+    case 'SET_MAPPINGS':
+      return { ...state, mappings: action.value };
     case 'SET_INITIAL_ENDPOINTS':
       return { ...state, endpoints: action.value };
     case 'SET_INITIAL_RESOURCES':

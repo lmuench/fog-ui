@@ -57,6 +57,14 @@ class ApiBuilder extends Component {
       map[m.customPath] = m.base + m.path;
     });
     api.put('/builder/mapping', map);
+    this.setMappings(map);
+  }
+
+  setMappings = mappings => {
+    this.props.dispatch({
+      type: 'SET_MAPPINGS',
+      value: mappings
+    });
   }
 
   render = () => (

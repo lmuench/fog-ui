@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import api from '../api';
 
 class TopBar extends Component {
+  componentDidMount = () => {
+    this.setMappings();
+  }
+
   resourceSelectHandler = eventKey => {
     if (eventKey === -1) {
       this.props.history.push('/resources');
@@ -13,6 +18,18 @@ class TopBar extends Component {
       type: 'SHOW_RESOURCE',
       index: eventKey
     });
+  }
+
+  setMappings = async () => {
+    const mappings = await this.getMappings();
+    this.props.dispatch({
+      type: 'SET_MAPPINGS',
+      value: mappings
+    });
+  }
+
+  getMappings = async () => {
+    return await api.getArray('/builder/mapping');
   }
 
   connectionSelectHandler = eventKey => {
@@ -43,12 +60,9 @@ class TopBar extends Component {
           onSelect={this.resourceSelectHandler}
           active={window.location.hash === '#/resources'}
         >
-          {this.props.endpoints.map(endpoint => ([
-            <MenuItem header>{endpoint.ep}</MenuItem>,
-            endpoint.resources.map((resource, i) => (
-              <MenuItem eventKey={resource.index} key={i}>{resource.path}</MenuItem>
-            ))
-          ]))}
+          {Object.keys(this.props.mappings).map((resource, i) => (
+            <MenuItem eventKey={resource} key={i}>{resource}</MenuItem>
+          ))}
           <MenuItem divider />
           <MenuItem eventKey={-1}>View all</MenuItem>
         </NavDropdown>
@@ -86,6 +100,7 @@ class TopBar extends Component {
 }
 
 const mapStateToProps = state => ({
+  mappings: state.resources.mappings,
   endpoints: state.resources.endpoints,
   resources: state.resources.resources,
   connections: state.connections.connections,

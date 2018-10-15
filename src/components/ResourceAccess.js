@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ResourceTable from './ResourceTable';
+import ResourceAccessTable from './ResourceAccessTable';
 import { makeSelectors } from 'sematable';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -8,57 +8,58 @@ import api from '../api';
 class ResourceAccess extends Component {
   constructor(props) {
     super(props);
-    this.setInitialResources();
+    // this.setInitialResources();
   }
 
-  setInitialResources = async () => {
-    const endpoints = await this.getEndpoints();
-    const resources = await this.getResources();
-    this.props.dispatch({
-      type: 'SET_INITIAL_ENDPOINTS',
-      value: endpoints
-    });
-    this.props.dispatch({
-      type: 'SET_INITIAL_RESOURCES',
-      value: resources
-    });
-  }
+  // setInitialResources = async () => {
+  //   const endpoints = await this.getEndpoints();
+  //   const resources = await this.getResources();
+  //   this.props.dispatch({
+  //     type: 'SET_INITIAL_ENDPOINTS',
+  //     value: endpoints
+  //   });
+  //   this.props.dispatch({
+  //     type: 'SET_INITIAL_RESOURCES',
+  //     value: resources
+  //   });
+  // }
 
-  getResources = async () => {
-    const endpoints = await this.getEndpoints();
-    return this.extractResources(endpoints);
-  }
+  // getResources = async () => {
+  //   const endpoints = await this.getEndpoints();
+  //   return this.extractResources(endpoints);
+  // }
 
-  getEndpoints = async () => {
-    return await api.getArray('/builder/endpoints');
-  }
+  // getEndpoints = async () => {
+  //   return await api.getArray('/builder/endpoints');
+  // }
 
-  extractResources = endpoints => {
-    const resources = [];
-    let index = 0;
-    endpoints.forEach(endpoint => {
-      endpoint.resources.forEach(resource => {
-        const extendedResource = {
-          ...endpoint,
-          ...resource
-        };
-        delete extendedResource.resources;
-        extendedResource.index = index;
-        index += 1;
-        resources.push(extendedResource);
-      })
-    })
-    return resources;
-  }
+  // extractResources = endpoints => {
+  //   const resources = [];
+  //   let index = 0;
+  //   endpoints.forEach(endpoint => {
+  //     endpoint.resources.forEach(resource => {
+  //       const extendedResource = {
+  //         ...endpoint,
+  //         ...resource
+  //       };
+  //       delete extendedResource.resources;
+  //       extendedResource.index = index;
+  //       index += 1;
+  //       resources.push(extendedResource);
+  //     })
+  //   })
+  //   return resources;
+  // }
 
-  reload = () => {
-    this.setInitialResources();
-  }
+  // reload = () => {
+  //   this.setInitialResources();
+  // }
 
   render = () => (
     <div className="ApiBuilder">
-      <ResourceTable data={this.props.resources} selectable />
-      <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button>
+      {/* <ResourceAccessTable data={this.props.resources} selectable /> */}
+      {/* <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button> */}
+      {/* <Button onClick={this.fetchSelected} style={{ marginRight: '5px' }} bsStyle="success">Fetch selected</Button> */}
     </div>
   );
 }
