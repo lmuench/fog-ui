@@ -22,6 +22,14 @@ api.getArray = async path => {
   return await res.json();
 }
 
+api.get = async path => {
+  const url = createUrl(path);
+  if (!url) return {};
+  const res = await fetch(url);
+  if (res.status !== 200) return {};
+  return await res.json();
+}
+
 api.put = (path, data) => {
   const url = createUrl(path);
   if (!url) return;

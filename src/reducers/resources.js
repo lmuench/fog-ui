@@ -3,20 +3,11 @@ const resources = (state = { mappings: [], resources: [], endpoints: [] }, actio
   switch (action.type) {
     case 'SET_MAPPINGS':
       return { ...state, mappings: action.value };
-    case 'SET_INITIAL_ENDPOINTS':
-      return { ...state, endpoints: action.value };
-    case 'SET_INITIAL_RESOURCES':
-      return { ...state, resources: action.value };
-    // case 'NEW_RESOURCE':
-    //   resources.push(new Connection(resources.length));
-    //   return { ...state, resources };
-    // case 'DELETE_RESOURCE':
-    //   resources.splice(action.index, 1);
-    //   resources.forEach((resource, i) => resource.index = i);
-    //   return { ...state, resources };
-    // case 'SET_RESOURCE_VALUE':
-    //   resources[action.index][action.column] = action.value;
-    //   return { ...state, resources };
+    case 'CLEAR_RESOURCES':
+      return { ...state, resources: [] };
+    case 'ADD_RESOURCE':
+      resources.push(action.value);
+      return { ...state, resources };
     default:
       return state;
   }

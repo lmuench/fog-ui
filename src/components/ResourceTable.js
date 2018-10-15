@@ -34,9 +34,9 @@ const columns = [
 ];
 
 class  ResourceTable extends Component {
-  render = () => {
-    return <Table {...this.props} columns={columns} />;
-  }
+  render = () => (
+    <Table {...this.props} columns={columns} />
+  );
 }
 
 export default sematable('resourceTable', ResourceTable, columns, { defaultPageSize: 50 });

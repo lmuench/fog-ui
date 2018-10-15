@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import ResourceAccessTable from './ResourceAccessTable';
-import { makeSelectors } from 'sematable';
+import AccessTable from './AccessTable';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import api from '../api';
 
 class ResourceAccess extends Component {
-  constructor(props) {
-    super(props);
-    // this.setInitialResources();
-  }
-
   // setInitialResources = async () => {
   //   const endpoints = await this.getEndpoints();
   //   const resources = await this.getResources();
@@ -55,18 +49,37 @@ class ResourceAccess extends Component {
   //   this.setInitialResources();
   // }
 
+  fetchResource = async (key, value) => {
+    const resource = {
+      customPath: key,
+      lastValue: JSON.stringify(await api.get('/gateway' + key), null, 1)
+    };
+    // console.log(resource);
+    this.props.dispatch({
+      type: 'ADD_RESOURCE',
+      value: resource
+    });
+  }
+
+  fetchAllResources = () => {
+    this.props.dispatch({
+      type: 'CLEAR_RESOURCES'
+    });
+    Object.keys(this.props.mappings).forEach(key => {
+      this.fetchResource(key, this.props.mappings[key])
+    })
+  }
+
   render = () => (
-    <div className="ApiBuilder">
-      {/* <ResourceAccessTable data={this.props.resources} selectable /> */}
-      {/* <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button> */}
-      {/* <Button onClick={this.fetchSelected} style={{ marginRight: '5px' }} bsStyle="success">Fetch selected</Button> */}
+    <div>
+      <AccessTable data={this.props.resources} />
+      <Button onClick={this.fetchAllResources} style={{ marginRight: '5px' }}>GET</Button>
     </div>
   );
 }
 
-const selectors = makeSelectors('resourceTable');
-
 const mapStateToProps = state => ({
+  mappings: state.resources.mappings,
   resources: state.resources.resources
 });
 
