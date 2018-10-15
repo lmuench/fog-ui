@@ -4,7 +4,7 @@ import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class TopBar extends Component {
-  selectHandler = eventKey => {
+  connectionSelectHandler = eventKey => {
     if (eventKey === -1) {
       this.props.history.push('/connections');
       return;
@@ -26,6 +26,15 @@ class TopBar extends Component {
         </Navbar.Brand>
       </Navbar.Header>
       <Nav>
+        <NavDropdown
+          title="Resources"
+          id="basic-nav-dropdown"
+          onSelect={this.resourceSelectHandler}
+        >
+          {this.props.resources.map((resource, i) => (
+            <MenuItem eventKey={resource.index} key={i}>{resource.name}</MenuItem>
+          ))}
+        </NavDropdown>
         <NavItem
           componentClass={Link}
           href="/apibuilder"
@@ -45,7 +54,7 @@ class TopBar extends Component {
         <NavDropdown
           title={this.props.connections[this.props.selected] && this.props.connections[this.props.selected].name}
           id="basic-nav-dropdown"
-          onSelect={this.selectHandler}
+          onSelect={this.connectionSelectHandler}
         >
           {this.props.connections.map((connection, i) => (
             <MenuItem eventKey={connection.index} key={i}>{connection.name}</MenuItem>
@@ -59,6 +68,7 @@ class TopBar extends Component {
 }
 
 const mapStateToProps = state => ({
+  resources: state.resources.resources,
   connections: state.connections.connections,
   selected: state.connections.selected  
 });
