@@ -49,12 +49,15 @@ class ResourceAccess extends Component {
   //   this.setInitialResources();
   // }
 
+  componentDidMount = () => {
+    this.fetchAllResources();
+  }
+
   fetchResource = async (key, value) => {
     const resource = {
       customPath: key,
       lastValue: JSON.stringify(await api.get('/gateway' + key), null, 1)
     };
-    // console.log(resource);
     this.props.dispatch({
       type: 'ADD_RESOURCE',
       value: resource
@@ -73,7 +76,7 @@ class ResourceAccess extends Component {
   render = () => (
     <div>
       <AccessTable data={this.props.resources} />
-      <Button onClick={this.fetchAllResources} style={{ marginRight: '5px' }}>GET</Button>
+      <Button onClick={this.fetchAllResources} style={{ marginRight: '5px' }}>GET all</Button>
     </div>
   );
 }
