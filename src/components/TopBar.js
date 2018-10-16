@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import api from '../api';
+import { tableSetFilter } from 'sematable';
 
 class TopBar extends Component {
   componentDidMount = () => {
@@ -10,14 +11,9 @@ class TopBar extends Component {
   }
 
   resourceSelectHandler = eventKey => {
-    if (eventKey === -1) {
-      this.props.history.push('/resources');
-      return;
-    }
-    this.props.dispatch({
-      type: 'SHOW_RESOURCE',
-      index: eventKey
-    });
+    this.props.history.push('/resources');
+    if (eventKey === -1) return;
+    this.props.dispatch(tableSetFilter('accessTable', [eventKey]));
   }
 
   setMappings = async () => {
