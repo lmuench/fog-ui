@@ -12,7 +12,6 @@ class TopBar extends Component {
 
   resourceSelectHandler = eventKey => {
     this.props.history.push('/resources');
-    if (eventKey === -1) return;
     this.props.dispatch(tableSetFilter('accessTable', [eventKey]));
   }
 
@@ -60,7 +59,7 @@ class TopBar extends Component {
             <MenuItem eventKey={resource} key={i}>{resource}</MenuItem>
           ))}
           <MenuItem divider />
-          <MenuItem eventKey={-1}>View all</MenuItem>
+          <MenuItem eventKey={'/'}>View all</MenuItem>
         </NavDropdown>
         <NavItem
           componentClass={Link}
