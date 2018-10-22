@@ -2,33 +2,19 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import api from '../api';
 import { tableDestroyState, tableSetFilter } from 'sematable';
 
 class TopBar extends Component {
   componentDidMount = () => {
-    this.setMappings();
   }
 
   resourceSelectHandler = eventKey => {
-    this.props.history.push('/resources');
     if (eventKey === -1) {
       this.props.dispatch(tableDestroyState('accessTable'));
     } else {
       this.props.dispatch(tableSetFilter('accessTable', [eventKey]));
     }
-  }
-
-  setMappings = async () => {
-    const mappings = await this.getMappings();
-    this.props.dispatch({
-      type: 'SET_MAPPINGS',
-      value: mappings
-    });
-  }
-
-  getMappings = async () => {
-    return await api.getArray('/builder/mapping');
+    this.props.history.push('/resources');
   }
 
   connectionSelectHandler = eventKey => {
@@ -40,9 +26,7 @@ class TopBar extends Component {
       type: 'SELECT_CONNECTION',
       index: eventKey
     });
-    if (window.location.hash === '#/apibuilder') {
-      window.location.reload();
-    }
+    window.location.reload();
   }
 
   render = () => (
