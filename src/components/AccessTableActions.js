@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import api from '../api';
+const JSON5 = require('json5');
 
 class AccessTableActions extends Component {
+  put = () => {
+    const json = JSON5.parse(
+      this.props.newValues[this.props.row.index]
+    );
+    api.put('/gateway' + this.props.row.customPath, json);
+  }
+
   render() {
     return (
       <div>
@@ -14,4 +24,8 @@ class AccessTableActions extends Component {
   }
 }
 
-export default AccessTableActions;
+const mapStateToProps = state => ({
+  newValues: state.resources.newValues
+});
+
+export default connect(mapStateToProps)(AccessTableActions);

@@ -53,6 +53,7 @@ class ApiBuilder extends Component {
 
   save = () => {
     const map = {};
+    console.log(this.props.selectedRows);
     this.props.selectedRows.forEach(m => {
       map[m.customPath] = m.base + m.path;
     });

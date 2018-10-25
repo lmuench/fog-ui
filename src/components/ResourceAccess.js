@@ -10,11 +10,12 @@ class ResourceAccess extends Component {
     this.fetchAllResources();
   }
 
-  fetchResource = async (key, value) => {
+  fetchResource = async key => {
     const resource = {
       customPath: key,
       lastValue: JSON.stringify(await api.get('/gateway' + key), null, 1)
     };
+
     this.props.dispatch({
       type: 'ADD_RESOURCE',
       value: resource
@@ -26,7 +27,7 @@ class ResourceAccess extends Component {
       type: 'CLEAR_RESOURCES'
     });
     Object.keys(this.props.mappings).forEach(key => {
-      this.fetchResource(key, this.props.mappings[key])
+      this.fetchResource(key)
     })
   }
 
