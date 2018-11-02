@@ -22,6 +22,18 @@ api.getArray = async path => {
   return await res.json();
 }
 
+api.post = (path, data) => {
+  const url = createUrl(path);
+  if (!url) return;
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify(data)
+  });
+}
+
 api.get = async path => {
   const url = createUrl(path);
   if (!url) return {};

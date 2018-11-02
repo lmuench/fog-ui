@@ -5,12 +5,30 @@ import api from '../api';
 const JSON5 = require('json5');
 
 class AccessTableActions extends Component {
+  post = () => {
+    const json = this.safeJsonParse(this.props.newValues[this.props.row.index]);
+    api.post('/gateway' + this.props.row.customPath, json);
+  }
+
+  get = async () => {
+    const resource = {
+      customPath: this.props.row.customPath,
+      lastValue: JSON.stringify(await api.get('/gateway' + this.props.row.customPath), null, 1)
+    };
+
+    this.props.dispatch({
+      type: 'UPDATE_RESOURCE',
+      index: this.props.row.index,
+      value: resource
+    });
+  }
+
   put = () => {
-    const json = JSON5.parse(
-      this.props.newValues[this.props.row.index]
-    );
+    const json = this.safeJsonParse(this.props.newValues[this.props.row.index]);
     api.put('/gateway' + this.props.row.customPath, json);
   }
+
+  safeJsonParse = (str) => str ? JSON5.parse(str) : {};
 
   render() {
     return (

@@ -33,7 +33,7 @@ class ResourceAccess extends Component {
 
   render = () => (
     <div>
-      <AccessTable data={this.props.resources} />
+      <AccessTable data={this.props.resources} fetchResource={this.fetchResource} />
       <Button onClick={this.fetchAllResources} style={{ marginRight: '5px' }}>GET all</Button>
     </div>
   );
