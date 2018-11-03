@@ -13,10 +13,24 @@ class ApiBuilder extends Component {
 
   setInitialMappings = async () => {
     const mappings = await this.getResources();
+    this.mergeWithPersistedMappings(mappings);
     this.props.dispatch({
       type: 'SET_INITIAL_MAPPINGS',
       value: mappings
     });
+  }
+
+  mergeWithPersistedMappings = mappings => {
+    Object.keys(this.props.persistedMappings).forEach(persistedCustomPath => {
+      const persistedPath = this.props.persistedMappings[persistedCustomPath];
+      for (const mapping of mappings) {
+        if (mapping.base + mapping.path === persistedPath) {
+          mapping.customPath = persistedCustomPath;
+          mapping.status = 'persisted';
+          break;
+        }
+      }
+    })
   }
 
   getResources = async () => {
@@ -40,6 +54,7 @@ class ApiBuilder extends Component {
         delete extendedResource.resources;
         extendedResource.customPath = extendedResource.path;
         extendedResource.index = index;
+        extendedResource.status = 'new';
         index += 1;
         resources.push(extendedResource);
       })
@@ -81,6 +96,7 @@ const selectors = makeSelectors('resourceTable');
 
 const mapStateToProps = state => ({
   mappings: state.mappings.mappings,
+  persistedMappings: state.resources.mappings,
   selectedRows: selectors.getSelectedRows(state)
 });
 

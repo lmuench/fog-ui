@@ -9,19 +9,7 @@ const CustomPathCell = props => (
 const getFilterClassName = value => `col-${value.toLowerCase()}`;
 
 const columns = [
-  // TODO: status
-  // {
-  //   key: 'status',
-  //   header: 'status',
-  //   filterable: true,
-  //   filterValues: [
-  //     'NEW',
-  //     'INCLUDED',
-  //     'DEAD',
-  //   ],
-  //   getFilterClassName: value => `col-${value.toLowerCase()}`,
-  //   sortable: true
-  // },
+  { key: 'status', header: 'status', filterable: true, filterValues: ['new', 'persisted'], getFilterClassName, sortable: true },
   { key: 'base', header: 'Base URI', searchable: true, sortable: true },
   { key: 'path', primaryKey: true, header: 'Original Path', searchable: true, sortable: true },
   { key: 'customPath', header: 'Custom Path', searchable: true, sortable: true, Component: CustomPathCell },
