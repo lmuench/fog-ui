@@ -39,7 +39,7 @@ class ApiBuilder extends Component {
   }
 
   getEndpoints = async () => {
-    return await api.getArray('/builder/endpoints');
+    return await api.getArray('/rd/endpoints');
   }
 
   extractResources = endpoints => {
@@ -68,11 +68,10 @@ class ApiBuilder extends Component {
 
   save = () => {
     const map = {};
-    console.log(this.props.selectedRows);
     this.props.selectedRows.forEach(m => {
       map[m.customPath] = m.base + m.path;
     });
-    api.put('/builder/mapping', map);
+    api.put('/mapping', map);
     this.setMappings(map);
   }
 
