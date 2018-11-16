@@ -71,7 +71,7 @@ class ApiBuilder extends Component {
     this.props.selectedRows.forEach(m => {
       map[m.customPath] = m.base + m.path;
     });
-    api.put('/mapping', map);
+    api.put('/mappings', map);
     this.setMappings(map);
   }
 

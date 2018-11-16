@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   getMappings = async () => {
-    return await api.getArray('/mapping');
+    return await api.getArray('/mappings');
   }
 
   render = () => (
