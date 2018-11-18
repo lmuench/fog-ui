@@ -34,33 +34,43 @@ class ApiBuilder extends Component {
   }
 
   getResources = async () => {
-    const endpoints = await this.getEndpoints();
-    return this.extractResources(endpoints);
+    // const endpoints = await this.getEndpoints();
+    // return this.extractResources(endpoints);
+    return (await api.getArray('/rd/resources')).map((resource, index) => {
+      if (resource.if && resource.rt) {
+        resource.customPath = `/${resource.if}s/${resource.rt}`
+      } else {
+        resource.customPath = resource.path;
+      }
+      resource.index = index;
+      resource.status= 'new';
+      return resource;
+    });
   }
 
-  getEndpoints = async () => {
-    return await api.getArray('/rd/endpoints');
-  }
+  // getEndpoints = async () => {
+  //   return await api.getArray('/rd/endpoints');
+  // }
 
-  extractResources = endpoints => {
-    const resources = [];
-    let index = 0;
-    endpoints.forEach(endpoint => {
-      endpoint.resources.forEach(resource => {
-        const extendedResource = {
-          ...endpoint,
-          ...resource
-        };
-        delete extendedResource.resources;
-        extendedResource.customPath = extendedResource.path;
-        extendedResource.index = index;
-        extendedResource.status = 'new';
-        index += 1;
-        resources.push(extendedResource);
-      })
-    })
-    return resources;
-  }
+  // extractResources = endpoints => {
+  //   const resources = [];
+  //   let index = 0;
+  //   endpoints.forEach(endpoint => {
+  //     endpoint.resources.forEach(resource => {
+  //       const extendedResource = {
+  //         ...endpoint,
+  //         ...resource
+  //       };
+  //       delete extendedResource.resources;
+  //       extendedResource.customPath = extendedResource.path;
+  //       extendedResource.index = index;
+  //       extendedResource.status = 'new';
+  //       index += 1;
+  //       resources.push(extendedResource);
+  //     })
+  //   })
+  //   return resources;
+  // }
 
   reload = () => {
     this.setInitialMappings();

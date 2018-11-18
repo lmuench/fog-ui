@@ -9,9 +9,10 @@ const CustomPathCell = props => (
 const getFilterClassName = value => `col-${value.toLowerCase()}`;
 
 const columns = [
+  { key: 'index', primaryKey: true, hidden: true },
   { key: 'status', header: 'status', filterable: true, filterValues: ['new', 'persisted'], getFilterClassName, sortable: true },
   { key: 'base', header: 'Base URI', searchable: true, sortable: true },
-  { key: 'path', primaryKey: true, header: 'Original Path', searchable: true, sortable: true },
+  { key: 'path', header: 'Original Path', searchable: true, sortable: true },
   { key: 'customPath', header: 'Custom Path', searchable: true, sortable: true, Component: CustomPathCell },
   { key: 'rt', header: 'Resource Type', searchable: true, sortable: true},
   { key: 'if', header: 'Interface Description', searchable: true, sortable: true, filterable: true, filterValues: ['actuator', 'sensor'], getFilterClassName },
