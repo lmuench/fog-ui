@@ -9,6 +9,9 @@ class ApiBuilder extends Component {
   constructor(props) {
     super(props);
     this.setInitialMappings();
+    this.state = {
+      pathsStartWithSlash: false
+    }
   }
 
   setInitialMappings = async () => {
@@ -78,8 +81,12 @@ class ApiBuilder extends Component {
 
   save = () => {
     const map = {};
-    this.props.selectedRows.forEach(m => {
-      map[m.customPath] = m.base + m.path;
+    this.props.selectedRows.forEach(row => {
+      if (!row.customPath.startsWith('/') || row.customPath.startsWith('//')) {
+        alert('Custom paths must start with "/"');
+        return;
+      }
+      map[row.customPath] = row.base + row.path;
     });
     api.put('/mappings', map);
     this.setMappings(map);
@@ -96,7 +103,7 @@ class ApiBuilder extends Component {
     <div>
       <ResourceTable data={this.props.mappings} selectable />
       <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button>
-      <Button onClick={this.save}>Publish selected</Button>
+      <Button onClick={this.save}>Save selected</Button>
     </div>
   );
 }
