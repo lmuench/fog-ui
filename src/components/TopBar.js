@@ -43,7 +43,7 @@ class TopBar extends Component {
           onSelect={this.resourceSelectHandler}
           active={window.location.hash === '#/resources'}
         >
-          {Object.keys(this.props.mappings).map((resource, i) => (
+          {this.props.api.map((resource, i) => (
             <MenuItem eventKey={resource} key={i}>{resource}</MenuItem>
           ))}
           <MenuItem divider />
@@ -84,6 +84,7 @@ class TopBar extends Component {
 
 const mapStateToProps = state => ({
   mappings: state.resources.mappings,
+  api: state.resources.api,
   endpoints: state.resources.endpoints,
   resources: state.resources.resources,
   connections: state.connections.connections,

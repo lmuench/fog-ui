@@ -90,12 +90,21 @@ class ApiBuilder extends Component {
     });
     api.put('/mappings', map);
     this.setMappings(map);
+    this.setApi(map);
   }
 
   setMappings = mappings => {
     this.props.dispatch({
       type: 'SET_MAPPINGS',
       value: mappings
+    });
+  }
+
+  setApi = mappings => {
+    const api = Object.keys(mappings).filter(mapping => !mapping.includes(':'));
+    this.props.dispatch({
+      type: 'SET_API',
+      value: api
     });
   }
 

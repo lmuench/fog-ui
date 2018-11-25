@@ -1,9 +1,11 @@
-const resources = (state = { mappings: [], resources: [], endpoints: [], newValues: [] }, action) => {
+const resources = (state = { mappings: [], api: [], resources: [], endpoints: [], newValues: [] }, action) => {
   const resources = [...state.resources];
   const resource = action.value;
   switch (action.type) {
     case 'SET_MAPPINGS':
       return { ...state, mappings: action.value };
+    case 'SET_API':
+      return { ...state, api: action.value };
     case 'CLEAR_RESOURCES':
       return { ...state, resources: [] };
     case 'ADD_RESOURCE':

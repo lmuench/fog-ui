@@ -16,6 +16,7 @@ class App extends Component {
 
   componentDidMount = async () => {
     this.setMappings();
+    this.setApi();
     this.props.history.push('/resources');
   }
   
@@ -29,6 +30,18 @@ class App extends Component {
 
   getMappings = async () => {
     return await api.getArray('/mappings');
+  }
+
+  setApi = async () => {
+    const api = await this.getApi();
+    this.props.dispatch({
+      type: 'SET_API',
+      value: api
+    });
+  }
+
+  getApi = async () => {
+    return await api.getArray('/mappings/api');
   }
 
   render = () => (

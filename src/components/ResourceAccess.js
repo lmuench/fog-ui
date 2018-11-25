@@ -26,7 +26,7 @@ class ResourceAccess extends Component {
     this.props.dispatch({
       type: 'CLEAR_RESOURCES'
     });
-    Object.keys(this.props.mappings).forEach(key => {
+    this.props.api.forEach(key => {
       this.fetchResource(key)
     })
   }
@@ -40,7 +40,7 @@ class ResourceAccess extends Component {
 }
 
 const mapStateToProps = state => ({
-  mappings: state.resources.mappings,
+  api: state.resources.api,
   resources: state.resources.resources
 });
 
