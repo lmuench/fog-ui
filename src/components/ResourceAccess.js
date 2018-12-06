@@ -11,9 +11,11 @@ class ResourceAccess extends Component {
   }
 
   fetchResource = async key => {
+    const jsonAndStatus = await api.getWithStatus('/gateway' + key);
     const resource = {
       customPath: key,
-      lastValue: JSON.stringify(await api.get('/gateway' + key), null, 1)
+      lastValue: JSON.stringify(jsonAndStatus.json, null, 1),
+      lastStatus: jsonAndStatus.status
     };
 
     this.props.dispatch({

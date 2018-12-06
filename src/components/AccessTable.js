@@ -29,6 +29,7 @@ const columns = [
   // },
   { key: 'customPath', primaryKey: true, header: 'Published As', searchable: true, sortable: true },
   // { key: 'resource', header: 'Resource', searchable: true, sortable: true, Component: CustomPathCell },
+  { key: 'lastStatus', header: 'Last Status', searchable: true, sortable: true },
   { key: 'lastValue', header: 'Last Value', searchable: true, sortable: true },
   // { key: 'rt', header: 'Resource Type', searchable: true, sortable: true },
   // { key: 'if', header: 'Interface Description', searchable: true, sortable: true, filterable: true, filterValues: ['actuator', 'sensor'], getFilterClassName },

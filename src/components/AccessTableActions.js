@@ -5,15 +5,28 @@ import api from '../api';
 const JSON5 = require('json5');
 
 class AccessTableActions extends Component {
-  post = () => {
+  post = async () => {
     const json = this.safeJsonParse(this.props.newValues[this.props.row.index]);
-    api.post('/gateway' + this.props.row.customPath, json);
+    const jsonAndStatus = await api.postWithStatus('/gateway' + this.props.row.customPath, json);
+    this.dispatchToStore(jsonAndStatus);
   }
 
   get = async () => {
+    const jsonAndStatus = await api.getWithStatus('/gateway' + this.props.row.customPath);
+    this.dispatchToStore(jsonAndStatus);
+  }
+
+  put = async () => {
+    const json = this.safeJsonParse(this.props.newValues[this.props.row.index]);
+    const jsonAndStatus = await api.putWithStatus('/gateway' + this.props.row.customPath, json);
+    this.dispatchToStore(jsonAndStatus);
+  }
+
+  dispatchToStore = async jsonAndStatus => {
     const resource = {
       customPath: this.props.row.customPath,
-      lastValue: JSON.stringify(await api.get('/gateway' + this.props.row.customPath), null, 1)
+      lastValue: JSON.stringify(jsonAndStatus.json, null, 1),
+      lastStatus: jsonAndStatus.status
     };
 
     this.props.dispatch({
@@ -21,11 +34,6 @@ class AccessTableActions extends Component {
       index: this.props.row.index,
       value: resource
     });
-  }
-
-  put = () => {
-    const json = this.safeJsonParse(this.props.newValues[this.props.row.index]);
-    api.put('/gateway' + this.props.row.customPath, json);
   }
 
   safeJsonParse = (str) => str ? JSON5.parse(str) : {};
