@@ -10,15 +10,15 @@ const HostCell = props => (
   <EditableCell {...props} actionType="SET_CONNECTION_VALUE" column="host" />
 );
 
-const DescriptionCell = props => (
-  <EditableCell {...props} actionType="SET_CONNECTION_VALUE" column="description" />
+const RdCell = props => (
+  <EditableCell {...props} actionType="SET_CONNECTION_VALUE" column="rd" />
 );
 
 const columns = [
   { key: 'index', primaryKey: true, header: 'Index', sortable: true },
   { key: 'name', header: 'Name', searchable: true, sortable: true, Component: NameCell },
-  { key: 'host', header: 'Host (e.g. http://127.0.0.1:8080)', searchable: true, sortable: true, Component: HostCell },
-  { key: 'description', header: 'Description', searchable: true, sortable: true, Component: DescriptionCell }
+  { key: 'host', header: 'Gateway Host (e.g. http://127.0.0.1:8080)', searchable: true, sortable: true, Component: HostCell },
+  { key: 'rd', header: 'Resource Directory Host', searchable: true, sortable: true, Component: RdCell }
 ];
 
 class ConnectionTable extends Component {

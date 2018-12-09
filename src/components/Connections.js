@@ -5,6 +5,10 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class Connections extends Component {
+  componentDidMount = () => {
+    this.getAllRDs();
+  }
+
   delete = () => {
     this.props.selectedRows.forEach(row => this.props.dispatch({
       type: 'DELETE_CONNECTION',
@@ -20,8 +24,47 @@ class Connections extends Component {
   }
 
   save = () => {
+    this.putAllRDs();
     this.props.dispatch({
       type: 'SAVE_CONNECTIONS'
+    });
+  }
+
+  getAllRDs = async () => {
+    this.props.connections.forEach(async row => {
+      let rdUrl = '';
+      let rdUrlResource = row.host + '/services/rd/url';
+      try {
+        if (row.host && row.host.startsWith('http')) {
+          const res = await fetch(rdUrlResource);
+          if (res.status === 200) {
+            const json = await res.json();
+            rdUrl = json.url;
+          }
+        }
+      } catch (e) {
+        console.log('Could not fetch RD URL from ' + rdUrlResource);
+      }
+      this.props.dispatch({
+        type: 'SET_CONNECTION_VALUE',
+        index: row.index,
+        column: 'rd',
+        value: rdUrl || 'not found'
+      })
+    });
+  }
+
+  putAllRDs = () => {
+    this.props.connections.forEach(row => {
+      if (row.host && row.host.startsWith('http')) {
+        fetch(row.host + '/services/rd/url', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+          body: JSON.stringify({ url: row.rd })
+        });
+      }
     });
   }
 

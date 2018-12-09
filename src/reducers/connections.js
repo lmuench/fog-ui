@@ -31,7 +31,9 @@ const connections = (state = { connections: getConnections(), selected: getSelec
     case 'SAVE_CONNECTIONS':
       localStorage.setItem(
         'connections',
-        JSON.stringify(connections)
+        JSON.stringify(connections.map(connection => {
+          return { name: connection.name, host: connection.host }
+        }))
       );
       return state;
     case 'SELECT_CONNECTION':
