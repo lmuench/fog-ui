@@ -43,7 +43,7 @@ class Connections extends Component {
           }
         }
       } catch (e) {
-        console.log('Could not fetch RD URL from ' + rdUrlResource);
+        console.log('Error! Could not fetch RD URL from ' + rdUrlResource);
       }
       this.props.dispatch({
         type: 'SET_CONNECTION_VALUE',
@@ -55,15 +55,27 @@ class Connections extends Component {
   }
 
   putAllRDs = () => {
-    this.props.connections.forEach(row => {
+    this.props.connections.forEach(async row => {
       if (row.host && row.host.startsWith('http')) {
-        fetch(row.host + '/services/rd/url', {
+        const res = await fetch(row.host + '/services/rd/url', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
           },
           body: JSON.stringify({ url: row.rd })
         });
+        if (res.status === 200) {
+          try {
+            const json = await res.json();
+            if (json !== false) {
+              alert(`Gateway ${row.host} could not connect to RD ${row.rd}`);
+            }
+          } catch (e) {
+            console.log(`Error! Could not parse response from PUT ${row.rd} to ${row.host} as JSON.`);
+          }
+        } else {
+          console.log(`Error! Could not PUT ${row.rd} to ${row.host}! Response status: ${res.status}`);
+        }
       }
     });
   }

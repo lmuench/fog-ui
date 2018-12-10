@@ -10,7 +10,7 @@ const getFilterClassName = value => `col-${value.toLowerCase()}`;
 
 const columns = [
   { key: 'index', primaryKey: true, hidden: true },
-  { key: 'status', header: 'status', filterable: true, filterValues: ['new', 'persisted'], getFilterClassName, sortable: true },
+  { key: 'status', header: 'Status', filterable: true, filterValues: ['new', 'persisted'], getFilterClassName, sortable: true },
   { key: 'base', header: 'Base URI', searchable: true, sortable: true },
   { key: 'path', header: 'Original Path', searchable: true, sortable: true },
   { key: 'customPath', header: 'Custom Path', searchable: true, sortable: true, Component: CustomPathCell },
