@@ -17,7 +17,7 @@ const RdCell = props => (
 const columns = [
   { key: 'index', primaryKey: true, header: 'Index', sortable: true },
   { key: 'name', header: 'Name', searchable: true, sortable: true, Component: NameCell },
-  { key: 'host', header: 'Gateway Host (e.g. http://127.0.0.1:8080)', searchable: true, sortable: true, Component: HostCell },
+  { key: 'host', header: 'Gateway Host', searchable: true, sortable: true, Component: HostCell },
   { key: 'rd', header: 'Resource Directory Host', searchable: true, sortable: true, Component: RdCell }
 ];
 

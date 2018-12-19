@@ -67,7 +67,7 @@ class Connections extends Component {
         if (res.status === 200) {
           try {
             const json = await res.json();
-            if (json !== false) {
+            if (json === false) {
               alert(`Gateway ${row.host} could not connect to RD ${row.rd}`);
             }
           } catch (e) {
