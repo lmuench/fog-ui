@@ -81,16 +81,22 @@ class ApiBuilder extends Component {
 
   save = () => {
     const map = {};
-    this.props.selectedRows.forEach(row => {
-      if (!row.customPath.startsWith('/') || row.customPath.startsWith('//')) {
-        alert('Custom paths must start with "/"');
-        return;
-      }
-      map[row.customPath] = row.base + row.path;
-    });
-    api.put('/mappings', map);
-    this.setMappings(map);
-    this.setApi(map);
+    try {
+      this.props.selectedRows.forEach(row => {
+        if (!row.customPath.startsWith('/') || row.customPath.startsWith('//')) {
+          throw 'Custom paths must start with "/"';
+        }
+        if (undefined != map[row.customPath]) {
+          throw `Paths must be unique ("${row.customPath}" is used more than once)`;
+        }
+        map[row.customPath] = row.base + row.path;
+      });
+      api.put('/mappings', map);
+      this.setMappings(map);
+      this.setApi(map);
+    } catch (errorMessage) {
+      alert(errorMessage);
+    }
   }
 
   setMappings = mappings => {
