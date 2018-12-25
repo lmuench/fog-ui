@@ -62,7 +62,13 @@ api.getWithStatus = async path => {
   return await bundleJsonAndStatus(res);
 }
 
-api.getArray = api.get;
+api.getArray = async path => {
+  const url = createUrl(path);
+  if (!url) return [];
+  const res = await fetch(url);
+  if (res.status !== 200) return [];
+  return await res.json();
+}
 
 api.put = (path, data) => {
   const url = createUrl(path);

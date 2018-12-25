@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Iframe from 'react-iframe';
 
 class WebConsole extends Component {
   createWebConsoleUrl = () => {
-    const connection = this.props.connections[this.props.selected]
+    const connection = this.props.connections[this.props.selected];
     if (!connection) return null;
     const host = connection.host;
     if (!host) return null;
@@ -13,7 +12,11 @@ class WebConsole extends Component {
 
   render = () => {
     const url = this.createWebConsoleUrl();
-    return url ? <Iframe url={url} height="2000px" /> : <div>No host defined</div>;
+    if (url) {
+      return <embed src={url} style={{ width: "100%" }} height={2000} />
+    } else {
+      return <div>No host defined</div>;
+    }
   }
 }
 

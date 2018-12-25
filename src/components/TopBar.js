@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import { tableDestroyState, tableSetFilter } from 'sematable';
 
 class TopBar extends Component {
-  componentDidMount = () => {
-  }
-
+  
   resourceSelectHandler = eventKey => {
     if (eventKey === -1) {
       this.props.dispatch(tableDestroyState('accessTable'));
