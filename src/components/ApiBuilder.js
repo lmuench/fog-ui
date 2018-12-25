@@ -37,8 +37,6 @@ class ApiBuilder extends Component {
   }
 
   getResources = async () => {
-    // const endpoints = await this.getEndpoints();
-    // return this.extractResources(endpoints);
     return (await api.getArray('/rd/resources')).map((resource, index) => {
       if (resource.if && resource.rt) {
         resource.customPath = `/${resource.if}s/${resource.rt}`
@@ -51,30 +49,6 @@ class ApiBuilder extends Component {
     });
   }
 
-  // getEndpoints = async () => {
-  //   return await api.getArray('/rd/endpoints');
-  // }
-
-  // extractResources = endpoints => {
-  //   const resources = [];
-  //   let index = 0;
-  //   endpoints.forEach(endpoint => {
-  //     endpoint.resources.forEach(resource => {
-  //       const extendedResource = {
-  //         ...endpoint,
-  //         ...resource
-  //       };
-  //       delete extendedResource.resources;
-  //       extendedResource.customPath = extendedResource.path;
-  //       extendedResource.index = index;
-  //       extendedResource.status = 'new';
-  //       index += 1;
-  //       resources.push(extendedResource);
-  //     })
-  //   })
-  //   return resources;
-  // }
-
   reload = () => {
     this.setInitialMappings();
   }
@@ -84,18 +58,18 @@ class ApiBuilder extends Component {
     try {
       this.props.selectedRows.forEach(row => {
         if (!row.customPath.startsWith('/') || row.customPath.startsWith('//')) {
-          throw 'Custom paths must start with "/"';
+          throw new Error('Custom paths must start with "/"');
         }
-        if (undefined != map[row.customPath]) {
-          throw `Paths must be unique ("${row.customPath}" is used more than once)`;
+        if (undefined !== map[row.customPath]) {
+          throw new Error(`Paths must be unique ("${row.customPath}" is used more than once)`);
         }
         map[row.customPath] = row.base + row.path;
       });
       api.put('/mappings', map);
       this.setMappings(map);
       this.setApi(map);
-    } catch (errorMessage) {
-      alert(errorMessage);
+    } catch (error) {
+      alert(error.message);
     }
   }
 

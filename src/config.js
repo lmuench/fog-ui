@@ -1,4 +1,6 @@
+const production = false;
+
 const config = {};
-config.useReduxChromeExtension = true;
+config.useReduxChromeExtension = production ? false : true;
 
 export default config;
