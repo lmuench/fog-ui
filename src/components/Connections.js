@@ -49,7 +49,7 @@ class Connections extends Component {
         type: 'SET_CONNECTION_VALUE',
         index: row.index,
         column: 'rd',
-        value: rdUrl || 'not found'
+        value: rdUrl || ''
       })
     });
   }
