@@ -7,7 +7,16 @@ import api from '../api';
 class ResourceAccess extends Component {
 
   componentDidMount = async () => {
+    await this.fetchApi();
     this.fetchAllResources();
+  }
+
+  fetchApi = async () => {
+    const fetchedApi = await api.get('/mappings/api');
+    this.props.dispatch({
+      type: 'SET_API',
+      value: fetchedApi
+    });
   }
 
   fetchResource = async key => {
@@ -28,6 +37,7 @@ class ResourceAccess extends Component {
     this.props.dispatch({
       type: 'CLEAR_RESOURCES'
     });
+    console.log(this.props.api);
     this.props.api.forEach(key => {
       this.fetchResource(key)
     })

@@ -62,7 +62,8 @@ class ApiBuilder extends Component {
         map[row.customPath] = row.base + row.path;
       });
       const jsonAndStatus = await api.putWithStatus('/mappings', map);
-      console.log('status', jsonAndStatus.status);
+      // console.log('status', jsonAndStatus.status);
+      // TODO: check status and handle unsuccessful PUT
       this.setMappings(map);
       this.setApi(map);
       this.setInitialMappings();
