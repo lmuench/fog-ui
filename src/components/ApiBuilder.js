@@ -16,15 +16,16 @@ class ApiBuilder extends Component {
 
   setInitialMappings = async () => {
     const mappings = await this.getResources();
-    this.mergeWithPersistedMappings(mappings);
+    await this.mergeWithPersistedMappings(mappings);
     this.props.dispatch({
       type: 'SET_INITIAL_MAPPINGS',
       value: mappings
     });
   }
 
-  mergeWithPersistedMappings = mappings => {
-    Object.keys(this.props.persistedMappings).forEach(persistedCustomPath => {
+  mergeWithPersistedMappings = async mappings => {
+    const fetchedApi = await api.getArray('/mappings/api');
+    fetchedApi.forEach(persistedCustomPath => {
       const persistedPath = this.props.persistedMappings[persistedCustomPath];
       for (const mapping of mappings) {
         if (mapping.base + mapping.path === persistedPath) {
@@ -63,13 +64,13 @@ class ApiBuilder extends Component {
       });
       const status = (await api.putWithStatus('/mappings', mappings)).status;
       if (status < 200 || status >= 300) {
-        alert('Resources could not be save. Gateway returned ' + status);
+        alert('Resources could not be saved. Gateway backend returned ' + status);
       }
       this.setMappings(await api.get('/mappings'));
       this.setApi(await api.getArray('/mappings/api'));
       this.setInitialMappings();
     } catch (error) {
-      alert(error.message);
+      alert('Resources could not be saved. Gateway backend cannot be reached.');
     }
   }
 
