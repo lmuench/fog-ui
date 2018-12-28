@@ -62,10 +62,7 @@ class ApiBuilder extends Component {
         }
         mappings[row.customPath] = row.base + row.path;
       });
-      const status = (await api.putWithStatus('/mappings', mappings)).status;
-      if (status < 200 || status >= 300) {
-        alert('Resources could not be saved. Gateway backend returned ' + status);
-      }
+      await api.putAsync('/mappings', mappings);
       this.setMappings(await api.get('/mappings'));
       this.setApi(await api.getArray('/mappings/api'));
       this.setInitialMappings();

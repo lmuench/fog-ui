@@ -81,6 +81,18 @@ api.put = (path, data) => {
   });
 }
 
+api.putAsync = async (path, data) => {
+  const url = createUrl(path);
+  if (!url) return;
+  await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify(data)
+  });
+}
+
 api.putWithStatus = async (path, data) => {
   const url = createUrl(path);
   if (!url) return;
