@@ -70,7 +70,7 @@ class ApiBuilder extends Component {
       this.setApi(await api.getArray('/mappings/api'));
       this.setInitialMappings();
     } catch (error) {
-      alert('Resources could not be saved. Gateway backend cannot be reached.');
+      alert(error.message);
     }
   }
 
