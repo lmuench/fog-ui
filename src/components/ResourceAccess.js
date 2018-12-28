@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AccessTable from './AccessTable';
+import ResourceAccessTable from './ResourceAccessTable';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import api from '../api';
@@ -35,15 +35,15 @@ class ResourceAccess extends Component {
 
   render = () => (
     <div>
-      <AccessTable data={this.props.resources} fetchResource={this.fetchResource} />
+      <ResourceAccessTable data={this.props.resources} fetchResource={this.fetchResource} />
       <Button onClick={this.fetchAllResources} style={{ marginRight: '5px' }}>GET all</Button>
     </div>
   );
 }
 
 const mapStateToProps = state => ({
-  api: state.resources.api,
-  resources: state.resources.resources
+  api: state.resourceAccess.api,
+  resources: state.resourceAccess.resources
 });
 
 export default connect(mapStateToProps)(ResourceAccess);

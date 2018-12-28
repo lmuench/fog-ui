@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ResourceTable from './ResourceTable';
+import ApiBuilderTable from './ApiBuilderTable';
 import { makeSelectors } from 'sematable';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -90,18 +90,18 @@ class ApiBuilder extends Component {
 
   render = () => (
     <div>
-      <ResourceTable data={this.props.mappings} selectable />
+      <ApiBuilderTable data={this.props.mappings} selectable />
       <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button>
       <Button onClick={this.save}>Save selected</Button>
     </div>
   );
 }
 
-const selectors = makeSelectors('resourceTable');
+const selectors = makeSelectors('apiBuilderTable');
 
 const mapStateToProps = state => ({
-  mappings: state.mappings.mappings,
-  persistedMappings: state.resources.mappings,
+  mappings: state.apiBuilder.mappings,
+  persistedMappings: state.resourceAccess.mappings,
   selectedRows: selectors.getSelectedRows(state)
 });
 

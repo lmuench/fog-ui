@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import api from '../api';
 const JSON5 = require('json5');
 
-class AccessTableActions extends Component {
+class ResourceAccessTableActions extends Component {
   post = async () => {
     const json = this.safeJsonParse(this.props.newValues[this.props.row.index]);
     const jsonAndStatus = await api.postWithStatus('/gateway' + this.props.row.customPath, json);
@@ -51,7 +51,7 @@ class AccessTableActions extends Component {
 }
 
 const mapStateToProps = state => ({
-  newValues: state.resources.newValues
+  newValues: state.resourceAccess.newValues
 });
 
-export default connect(mapStateToProps)(AccessTableActions);
+export default connect(mapStateToProps)(ResourceAccessTableActions);

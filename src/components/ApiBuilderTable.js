@@ -22,10 +22,10 @@ const columns = [
   // { key: 'gp', header: 'Group', searchable: true, sortable: true }
 ];
 
-class  ResourceTable extends Component {
+class  ApiBuilderTable extends Component {
   render = () => (
     <Table {...this.props} columns={columns} />
   );
 }
 
-export default sematable('resourceTable', ResourceTable, columns, { defaultPageSize: 50 });
+export default sematable('apiBuilderTable', ApiBuilderTable, columns, { defaultPageSize: 50 });

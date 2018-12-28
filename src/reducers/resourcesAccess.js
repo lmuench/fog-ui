@@ -1,4 +1,4 @@
-const resources = (state = { mappings: [], api: [], resources: [], endpoints: [], newValues: [] }, action) => {
+const resourceAccess = (state = { mappings: [], api: [], resources: [], endpoints: [], newValues: [] }, action) => {
   const resources = [...state.resources];
   const resource = action.value;
   switch (action.type) {
@@ -26,4 +26,4 @@ const resources = (state = { mappings: [], api: [], resources: [], endpoints: []
 };
 
 
-export default resources;
+export default resourceAccess;

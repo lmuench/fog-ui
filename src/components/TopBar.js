@@ -81,10 +81,10 @@ class TopBar extends Component {
 }
 
 const mapStateToProps = state => ({
-  mappings: state.resources.mappings,
-  api: state.resources.api,
-  endpoints: state.resources.endpoints,
-  resources: state.resources.resources,
+  mappings: state.resourceAccess.mappings,
+  api: state.resourceAccess.api,
+  endpoints: state.resourceAccess.endpoints,
+  resources: state.resourceAccess.resources,
   connections: state.connections.connections,
   selected: state.connections.selected  
 });

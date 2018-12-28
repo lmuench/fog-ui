@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import sematable, { Table } from 'sematable';
 import EditableCell from './EditableCell.js';
-import AccessTableActions from './AccessTableActions';
+import ResourceAccessTableActions from './ResourceAccessTableActions';
 
 // const SetValueCell = props => (
 //   <EditableCell {...props} actionType="SET_MAPPING_VALUE" column="customPath" />
@@ -38,13 +38,13 @@ const columns = [
   // { key: 'protocol', header: 'Protocol', sortable: true, filterable: true, filterValues: ['CoAP', 'HTTP', 'MQTT'], getFilterClassName }
   // { key: 'gp', header: 'Group', searchable: true, sortable: true }
   { key: 'newValue', header: 'New Value', searchable: true, sortable: true, Component: NewValueCell },
-  { key: 'actions', header: 'Actions', Component: AccessTableActions }
+  { key: 'actions', header: 'Actions', Component: ResourceAccessTableActions }
 ];
 
-class AccessTable extends Component {
+class ResourceAccessTable extends Component {
   render = () => (
     <Table {...this.props} columns={columns} />
   );
 }
 
-export default sematable('accessTable', AccessTable, columns, { defaultPageSize: 50 });
+export default sematable('resourceAccessTable', ResourceAccessTable, columns, { defaultPageSize: 50 });

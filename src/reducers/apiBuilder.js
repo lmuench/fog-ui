@@ -1,4 +1,4 @@
-const mappings = (state = { mappings: [] }, action) => {
+const apiBuilder = (state = { mappings: [] }, action) => {
   const mappings = [...state.mappings];
   switch (action.type) {
     case 'SET_INITIAL_MAPPINGS':
@@ -11,4 +11,4 @@ const mappings = (state = { mappings: [] }, action) => {
   }
 };
 
-export default mappings;
+export default apiBuilder;
