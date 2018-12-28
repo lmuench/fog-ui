@@ -8,9 +8,9 @@ class TopBar extends Component {
   
   resourceSelectHandler = eventKey => {
     if (eventKey === -1) {
-      this.props.dispatch(tableDestroyState('accessTable'));
+      this.props.dispatch(tableDestroyState('resourceAccessTable'));
     } else {
-      this.props.dispatch(tableSetFilter('accessTable', [eventKey]));
+      this.props.dispatch(tableSetFilter('resourceAccessTable', [eventKey]));
     }
     this.props.history.push('/resources');
   }

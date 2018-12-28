@@ -49,11 +49,7 @@ class ApiBuilder extends Component {
     });
   }
 
-  reload = () => {
-    this.setInitialMappings();
-  }
-
-  save = () => {
+  save = async () => {
     const map = {};
     try {
       this.props.selectedRows.forEach(row => {
@@ -65,9 +61,11 @@ class ApiBuilder extends Component {
         }
         map[row.customPath] = row.base + row.path;
       });
-      api.put('/mappings', map);
+      const jsonAndStatus = await api.putWithStatus('/mappings', map);
+      console.log('status', jsonAndStatus.status);
       this.setMappings(map);
       this.setApi(map);
+      this.setInitialMappings();
     } catch (error) {
       alert(error.message);
     }
@@ -91,7 +89,7 @@ class ApiBuilder extends Component {
   render = () => (
     <div>
       <ApiBuilderTable data={this.props.mappings} selectable />
-      <Button onClick={this.reload} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button>
+      <Button onClick={this.setInitialMappings} style={{ marginRight: '5px' }} bsStyle="danger">Reload resources</Button>
       <Button onClick={this.save}>Save selected</Button>
     </div>
   );
