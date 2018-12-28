@@ -16,7 +16,6 @@ const bundleJsonAndStatus = async res => {
   const jsonAndStatus = {};
   jsonAndStatus.status = res.status;
   jsonAndStatus.json = (res.status === 200) ? await res.json() : {};
-  console.log(jsonAndStatus);
   return jsonAndStatus;
 }
 

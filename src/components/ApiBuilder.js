@@ -50,40 +50,40 @@ class ApiBuilder extends Component {
   }
 
   save = async () => {
-    const map = {};
+    const mappings = {};
     try {
       this.props.selectedRows.forEach(row => {
         if (!row.customPath.startsWith('/') || row.customPath.startsWith('//')) {
           throw new Error('Custom paths must start with "/"');
         }
-        if (undefined !== map[row.customPath]) {
+        if (undefined !== mappings[row.customPath]) {
           throw new Error(`Paths must be unique ("${row.customPath}" is used more than once)`);
         }
-        map[row.customPath] = row.base + row.path;
+        mappings[row.customPath] = row.base + row.path;
       });
-      const jsonAndStatus = await api.putWithStatus('/mappings', map);
-      // console.log('status', jsonAndStatus.status);
-      // TODO: check status and handle unsuccessful PUT
-      this.setMappings(map);
-      this.setApi(map);
+      const status = (await api.putWithStatus('/mappings', mappings)).status;
+      if (status < 200 || status >= 300) {
+        alert('Resources could not be save. Gateway returned ' + status);
+      }
+      this.setMappings(await api.get('/mappings'));
+      this.setApi(await api.getArray('/mappings/api'));
       this.setInitialMappings();
     } catch (error) {
       alert(error.message);
     }
   }
 
-  setMappings = mappings => {
+  setMappings = fetchedMappings => {
     this.props.dispatch({
       type: 'SET_MAPPINGS',
-      value: mappings
+      value: fetchedMappings
     });
   }
 
-  setApi = mappings => {
-    const api = Object.keys(mappings).filter(mapping => !mapping.includes(':'));
+  setApi = fetchedApi => {
     this.props.dispatch({
       type: 'SET_API',
-      value: api
+      value: fetchedApi
     });
   }
 

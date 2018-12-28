@@ -12,7 +12,7 @@ class ResourceAccess extends Component {
   }
 
   fetchApi = async () => {
-    const fetchedApi = await api.get('/mappings/api');
+    const fetchedApi = await api.getArray('/mappings/api');
     this.props.dispatch({
       type: 'SET_API',
       value: fetchedApi
@@ -37,7 +37,6 @@ class ResourceAccess extends Component {
     this.props.dispatch({
       type: 'CLEAR_RESOURCES'
     });
-    console.log(this.props.api);
     this.props.api.forEach(key => {
       this.fetchResource(key)
     })
