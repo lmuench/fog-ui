@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 const config = {};
 config.useReduxChromeExtension = production ? false : true;
